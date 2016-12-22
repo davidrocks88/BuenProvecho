@@ -6,7 +6,9 @@ import {
   View,
   TouchableHighlight,
   ListView,
-  Text
+  Text,
+  SegmentedControlIOS,
+
 } from 'react-native';
 
 var styles = StyleSheet.create({
@@ -16,12 +18,19 @@ var styles = StyleSheet.create({
     marginRight: 10
   },
   container: {
-    padding: 30,
-    marginTop: 65,
-    alignItems: 'center'
+    justifyContent: 'center',
+    padding: 5,
+    marginTop: 75,
+    alignItems: 'flex-start',
+    flex: 1,
+    flexDirection: 'row'
   },
   textContainer: {
-    flex: 1
+    justifyContent: 'center',
+    flex: 1,
+    flexDirection: 'row',
+    alignSelf: 'stretch',
+
   },
   separator: {
     height: 1,
@@ -45,6 +54,11 @@ var styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     padding: 10
+  },
+  control: {
+    height: 30,
+    flex: 1,
+    flexDirection: 'row'
   }
 });
 
@@ -54,16 +68,26 @@ class DiningList extends Component {
       console.log('in constructor');
 
       this.state = {
-        diningData: this.props.diningData
+        diningData: this.props.diningData,
+        selectedIndex: 0
       };
     }
 
   render() { 
     return (
       <View style={styles.container}>
-        <Text style={styles.description}>
-          {JSON.stringify(this.state.diningData)}
-        </Text>
+        <SegmentedControlIOS
+          style={styles.control}
+          values={['Breakfast', 'Lunch', 'Dinner']}
+          selectedIndex={this.state.selectedIndex}
+          onChange={(event) => {
+            this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
+          }} />
+          <View style={styles.textContainer}>
+            <Text>
+              {JSON.stringify(this.state.diningData)}
+            </Text>
+          </View>
       </View>
       );
   }
