@@ -128,7 +128,7 @@ class OpeningPage extends Component {
     
     console.log('about to push...');
     this.props.navigator.push({
-        title: 'Results',
+        title: this.state.hall,
         component: DiningList,
         passProps: {diningData: JSON.parse(response)}
       });
@@ -145,11 +145,13 @@ class OpeningPage extends Component {
   }
 
   onDewickPressed() {
+    this.setState({isLoading: true});
     var date = this.state.date;
     var month = date.getUTCMonth() + 1;
     var year = date.getFullYear();
     var day = date.getUTCDate() - 1;
     var hall = 'dewick';
+    this.setState({hall: "Dewick Menu"});
 
     var query = 'https://tuftsdiningdata.herokuapp.com/menus/' + hall + '/' + day + '/' + month + '/' + year;
     this.setState({status: query});
@@ -158,11 +160,15 @@ class OpeningPage extends Component {
   }
 
   onCarmPressed() {
+    this.setState({isLoading: true});
+
     var date = this.state.date;
     var month = date.getMonth() + 1;
     var year = date.getFullYear();
     var day = date.getUTCDate() - 1;
     var hall = 'carm';
+
+    this.setState({hall: 'Carmichael Menu'});
 
     var query = 'https://tuftsdiningdata.herokuapp.com/menus/' + hall + '/' + day + '/' + month + '/' + year;
     this.setState({status: query});
@@ -182,11 +188,10 @@ class OpeningPage extends Component {
   };
 
   render() {
-    var spinner = this.state.isLoading ?
+      var spinner = this.state.isLoading ?
         ( <ActivityIndicator
             size='large'/> ) :
         ( <View/>);
-
 
     return (
       <View style={styles.container}>
@@ -195,46 +200,39 @@ class OpeningPage extends Component {
           Select A Dining Hall
         </Text>
 
-        {/*<View style={{
+        <TouchableHighlight 
+              style={styles.button}
+              underlayColor='#99d9f4'
+              onPress={this.onDewickPressed.bind(this)}>
+            <Text style={styles.buttonText}>Dewick</Text>
+        </TouchableHighlight>
+
+        <TouchableHighlight 
+              style={styles.button}
+              underlayColor='#99d9f4'
+              onPress={this.onCarmPressed.bind(this)}>
+            <Text style={styles.buttonText}>Carmichael</Text>
+        </TouchableHighlight>
+        
+        <View style={{
           flex: 1,
           flexDirection: 'column',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-start',
+        }}>
+          <Text style={styles.description}>
+            {this.state.status}
+          </Text>
+          <DatePickerIOS
+              date={this.state.date}
+              mode='date'
+              timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
+              onDateChange={this.onDateChange}
+              style={styles.datePicker} />
 
-        }}>*/}
-        {/*<View style={{
-          flex: 1,
-          flexDirection: 'column',
-
-        }}>*/}
-          <TouchableHighlight 
-                style={styles.button}
-                underlayColor='#99d9f4'
-                onPress={this.onDewickPressed.bind(this)}>
-              <Text style={styles.buttonText}>Dewick</Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight 
-                style={styles.button}
-                underlayColor='#99d9f4'
-                onPress={this.onCarmPressed.bind(this)}>
-              <Text style={styles.buttonText}>Carmichael</Text>
-          </TouchableHighlight>
-          <View>
-        <Text style={styles.description}>
-          {this.state.status}
-        </Text>
-        <DatePickerIOS
-            date={this.state.date}
-            mode='date'
-            timeZoneOffsetInMinutes={this.state.timeZoneOffsetInHours * 60}
-            onDateChange={this.onDateChange}
-            style={styles.datePicker} />
-
-
-        </View>
         {/*</View>*/}
         
-
+        {spinner}
+        </View>
 
 
       </View>

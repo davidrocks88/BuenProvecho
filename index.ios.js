@@ -7,7 +7,7 @@
 var React = require('react');
 var ReactNative = require('react-native');
 var OpeningPage = require('./OpeningPage.js');
-
+console.disableYellowBox = true;
 var styles = ReactNative.StyleSheet.create({
   text: {
     color: 'black',
@@ -34,3 +34,4 @@ class BuenProvechoApp extends React.Component {
 }
 
 ReactNative.AppRegistry.registerComponent('BuenProvecho', function() { return BuenProvechoApp });
+
