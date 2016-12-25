@@ -7,6 +7,12 @@
 var React = require('react');
 var ReactNative = require('react-native');
 var OpeningPage = require('./OpeningPage.js');
+
+import {
+  Text,
+  View,
+} from 'react-native'
+
 console.disableYellowBox = true;
 var styles = ReactNative.StyleSheet.create({
   text: {
@@ -31,6 +37,7 @@ class BuenProvechoApp extends React.Component {
       }}/>
     );
   }
+  
 }
 
 ReactNative.AppRegistry.registerComponent('BuenProvecho', function() { return BuenProvechoApp });

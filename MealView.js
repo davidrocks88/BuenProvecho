@@ -45,11 +45,12 @@ class MealView extends React.Component{
     // console.log('in constructor');
     // console.log(this.props.diningData);
 
-
-
     dataBlob = this.props.diningData;
+
     if (dataBlob == undefined) {
       dataBlob = {nothing: 'empty'};
+      this.props.empty = true;
+
     }
 
     var dataSource = new ListView.DataSource({
@@ -60,6 +61,9 @@ class MealView extends React.Component{
     this.state = {
       dataSource: dataSource.cloneWithRowsAndSections(dataBlob)
     }
+
+    console.log('in const, this.props.empty = ' + this.pr)
+
 
   }
 
@@ -88,10 +92,50 @@ class MealView extends React.Component{
     )
   }
 
+  getListView() {
+    console.log('this.props.empty = ' + this.props.empty)
+
+    if(this.props.diningData == undefined) {
+      return (
+        <View style = {{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Text style = {{
+            fontSize: 30,
+            marginBottom: 0,
+          }}> No menu info found.</Text>
+          <Text style = {{
+            fontSize: 30,
+            marginBottom: 80,
+          }}> Sorry! </Text>
+        </View>
+
+        );
+    }
+
+
+    return (
+        <View style = {styles.lvContainer}>
+          <ListView
+            automaticallyAdjustContentInsets={false}
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRowText}
+            // renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
+            renderSectionHeader={this.renderSectionHeader}
+            enableEmptySections = {false}
+          />
+        </View>
+      );
+  }
+
   render() {
 
     console.log('meal = ' + this.props.meal);
     console.log(this.props.diningData);
+
+    var lv = this.getListView();
     return (
       <View style={{
         justifyContent: 'flex-start',
@@ -109,17 +153,8 @@ class MealView extends React.Component{
             backgroundColor: bgColor
           }}> {this.props.meal} </Text>
         </View>
-        <View style = {styles.lvContainer}>
-          <ListView
-            automaticallyAdjustContentInsets={false}
-            dataSource={this.state.dataSource}
-            renderRow={this.renderRowText}
-            // renderSeparator={(sectionId, rowId) => <View key={rowId} style={styles.separator} />}
-            renderSectionHeader={this.renderSectionHeader}
-            enableEmptySections = {false}
-          />
-        </View>
 
+        {lv}
 
       </View>
       );

@@ -26,7 +26,9 @@ var styles = StyleSheet.create({
   container: {
     padding: 30,
     marginTop: 65,
-    alignItems: 'center'
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column'
   },
 flowDown: {
   flexDirection: 'column',
@@ -65,12 +67,16 @@ searchInput: {
   color: '#48BBEC'
 },
 datePicker: {
-flex: 1,
-width: 300,
+  flex: 1,
+  width: 300,
+  height: 300,
   },
 image: {
         width: 217,
         height: 138
+},
+spinner: {
+  marginTop: -150,
 }
 });
 
@@ -189,7 +195,7 @@ class OpeningPage extends Component {
 
   render() {
       var spinner = this.state.isLoading ?
-        ( <ActivityIndicator
+        ( <ActivityIndicator style={styles.spinner}
             size='large'/> ) :
         ( <View/>);
 
@@ -214,14 +220,8 @@ class OpeningPage extends Component {
             <Text style={styles.buttonText}>Carmichael</Text>
         </TouchableHighlight>
         
-        <View style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'flex-start',
-        }}>
-          <Text style={styles.description}>
-            {this.state.status}
-          </Text>
+
+
           <DatePickerIOS
               date={this.state.date}
               mode='date'
@@ -229,9 +229,8 @@ class OpeningPage extends Component {
               onDateChange={this.onDateChange}
               style={styles.datePicker} />
 
-        {/*</View>*/}
-        
-        {spinner}
+        <View> 
+          {spinner}
         </View>
 
 

@@ -12,6 +12,8 @@ import {
   TabBarIOS,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/Ionicons';
+
 var PageControl = require('react-native-page-control');
 var MealView = require('./MealView');
 var styles = StyleSheet.create({
@@ -102,10 +104,10 @@ class DiningList extends Component {
   render() {
     return (
       <TabBarIOS>
-        <TabBarIOS.Item
+        <Icon.TabBarItem
           title="Breakfast"
-          icon={{uri: base64Icon, scale: 3}}
-
+          iconName="ios-egg-outline"
+          selectedIconName = "ios-egg"
           selected={this.state.selectedTab === 'Breakfast'}
           onPress={() => {
               this.setState({
@@ -113,10 +115,11 @@ class DiningList extends Component {
               });
           }}>
               <MealView diningData={this.props.diningData.data['Breakfast']} meal='Breakfast' />
-          </TabBarIOS.Item>
-        <TabBarIOS.Item
+          </Icon.TabBarItem>
+        <Icon.TabBarItem
           title="Lunch"
-          icon={{uri: base64Icon, scale: 3}}
+          iconName="ios-basket-outline"
+          selectedIconName = "ios-basket"
           selected={this.state.selectedTab === 'Lunch'}
           onPress={() => {
               this.setState({
@@ -124,10 +127,11 @@ class DiningList extends Component {
               });
           }}>
               <MealView diningData={this.props.diningData.data['Lunch']} meal='Lunch' />
-          </TabBarIOS.Item>
-        <TabBarIOS.Item
+          </Icon.TabBarItem>
+        <Icon.TabBarItem
           title="Dinner"
-          icon={{uri: base64Icon, scale: 3}}
+          iconName="ios-pizza-outline"
+          selectedIconName = "ios-pizza"
           selected={this.state.selectedTab === 'Dinner'}
           onPress={() => {
               this.setState({
@@ -135,7 +139,7 @@ class DiningList extends Component {
               });
           }}>
               <MealView diningData={this.props.diningData.data['Dinner']} meal='Dinner' />
-          </TabBarIOS.Item>
+          </Icon.TabBarItem>
       </TabBarIOS>  
       );
   }

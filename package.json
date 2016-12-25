@@ -11,7 +11,8 @@
     "react-native": "0.39.2",
     "react-native-page-control": "^1.0.7",
     "react-native-pagecontrol": "^2.0.0",
-    "react-native-scrollable-tab-view": "^0.7.0"
+    "react-native-scrollable-tab-view": "^0.7.0",
+    "react-native-vector-icons": "^3.0.0"
   },
   "devDependencies": {
     "babel-jest": "18.0.0",
