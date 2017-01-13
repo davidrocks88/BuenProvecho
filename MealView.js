@@ -32,6 +32,8 @@ var styles = StyleSheet.create({
   lvItem: {
     width: screen.width,
     fontSize: 20,
+    padding: 3,
+    paddingLeft: 0,
   },
   sectionText: {
     fontSize: 24,
@@ -62,7 +64,6 @@ class MealView extends React.Component{
       dataSource: dataSource.cloneWithRowsAndSections(dataBlob)
     }
 
-    console.log('in const, this.props.empty = ' + this.pr)
 
 
   }
@@ -151,7 +152,8 @@ class MealView extends React.Component{
             marginTop: 60,
             marginBottom: 0,
             backgroundColor: bgColor
-          }}> {this.props.meal} </Text>
+          }}> {
+            this.props.meal} </Text>
         </View>
 
         {lv}

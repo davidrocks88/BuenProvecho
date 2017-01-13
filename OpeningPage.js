@@ -9,11 +9,12 @@ import {
   TouchableHighlight,
   ActivityIndicator,
   DatePickerIOS,
-  Image
+  Image,
+  Button,
 } from 'react-native';
 
 var DiningList = require('./DiningList');
-
+var Communications = require('react-native-communications');
 
 
 var styles = StyleSheet.create({
@@ -76,7 +77,7 @@ image: {
         height: 138
 },
 spinner: {
-  marginTop: -150,
+  marginTop: -60,
 }
 });
 
@@ -110,7 +111,6 @@ class OpeningPage extends Component {
     var obj = this;
     var request = new XMLHttpRequest();
     request.onreadystatechange = (e) => {
-      console.log(request);
       if (request.readyState !== 4) {
         return;
       }
@@ -130,9 +130,6 @@ class OpeningPage extends Component {
   _handleResponse(response) {
     this.setState({ isLoading: false , message: '', status: 'got it'});
     
-    console.log(response);
-    
-    console.log('about to push...');
     this.props.navigator.push({
         title: this.state.hall,
         component: DiningList,
@@ -162,7 +159,6 @@ class OpeningPage extends Component {
     var query = 'https://tuftsdiningdata.herokuapp.com/menus/' + hall + '/' + day + '/' + month + '/' + year;
     this.setState({status: query});
     this._executeQuery(query);
-    console.log(query);
   }
 
   onCarmPressed() {
@@ -179,8 +175,6 @@ class OpeningPage extends Component {
     var query = 'https://tuftsdiningdata.herokuapp.com/menus/' + hall + '/' + day + '/' + month + '/' + year;
     this.setState({status: query});
     this._executeQuery(query);
-        console.log(query);
-
   }
 
   static defaultProps = {
@@ -192,6 +186,10 @@ class OpeningPage extends Component {
   onDateChange = (date) => {
     this.setState({date: date, status: date.toString()});
   };
+
+  opnPressLearnMore() {
+    alert('hi')
+  }
 
   render() {
       var spinner = this.state.isLoading ?
@@ -233,6 +231,17 @@ class OpeningPage extends Component {
           {spinner}
         </View>
 
+        <Text style={styles.description}>
+          Buen Provecho was developed by David Bernstein
+        </Text>
+       <Button
+          onPress={function() {
+            Communications.email(['davidrules88@gmail.com'],null,null,'Buen Provecho Feedback',null);
+          }}
+          title="Send Feedback"
+          style={styles.description}
+          accessibilityLabel="Learn more about this purple button"
+        />
 
       </View>
     );
